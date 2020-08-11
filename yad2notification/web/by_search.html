@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>YAD2NOTFI</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
+    <script type="text/javascript" src="/eel.js"></script>
+	<style>
+		#body{ 
+			opacity: 0;
+			transition: opacity 2s;
+		}
+	</style>
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+    <aside class="sidebar pos-absolute z-2"
+       data-role="sidebar"
+       data-toggle="#sidebar-toggle-3"
+       id="sb3"
+       data-shift=".shifted-content">
+        <div class="sidebar-header" data-image="images/sb-bg-1.jpg">
+            <span class="title fg-black">Yad2 Notification</span>
+            <span class="subtitle fg-black"> 2020 © Eldar Shayeviz</span>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a><span class="mif-search icon"></span>By Search</a></li>
+            <li><a href="readme.html"><span class="mif-question icon"></span>How To Use</a></li>
+            <li class="divider"></li>
+            <li><a href="results.html"><span class="mif-list icon"></span>Results</a></li>
+        </ul>
+    </aside>
+
+    <div class="shifted-content h-100 p-ab">
+        <div class="app-bar pos-absolute bg-orange z-1" data-role="appbar">
+            <button class="app-bar-item c-pointer" id="sidebar-toggle-3">
+                <span class="mif-menu fg-white"></span>
+            </button>
+        </div>
+		<div id="body" class="container">
+			<div class="h-100 p-4">
+				<p class="h1">Notification By Search</p>
+				<p>search in <a target="_blank" href="http://www.yad2.co.il/products/all?">www.yad2.co.il</a> and paste the URL here</p>
+				<input required id="url" type="text" data-role="materialinput"
+				placeholder="Enter Your Search's URL" data-icon="<span class='mif-chrome mif-1x'>" data-label="Query's URL"
+					 data-informer="Enter a valid URL" data-cls-line="bg-cyan" 
+					 data-cls-label="fg-black" data-cls-informer="fg-black" data-cls-icon="fg-darkCyan">
+				<br><br>
+				<input required maxlength="13" id="phone" type="text" data-role="materialinput"
+				placeholder="for example +972503072735" data-icon="<span class='mif-phone'>" data-label="Your Phone Number" data-cls-line="bg-cyan" 
+					 data-cls-label="fg-black" data-cls-informer="fg-black" data-cls-icon="fg-darkCyan">
+					 <br><br>
+                <button style="margin-left: 260px;" id="start" class="button warning drop-shadow">Notify me</button>
+			</div>
+		</div>
+    </div>
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+    <script>
+        
+		sessionStorage.setItem("counter",sessionStorage.getItem("counter")+1);
+		count =  sessionStorage.getItem("counter");
+		if(count < 2)
+		{
+		
+			Metro.activity.open({
+			type: 'metro',
+			overlayClickClose: false,
+			overlayColor: '#fff',
+			overlayAlpha: 1,
+			text: '<div class=\'mt-2 text-small\'>Just a second...</div>',
+			autoHide: 5000,
+			});
+		}
+		
+		document.getElementById("body").style.opacity='1'
+		
+		var load = null;
+        
+        function start_loading()
+        {
+            
+            load = Metro.activity.open({
+			type: 'metro',
+			overlayClickClose: false,
+			overlayColor: '#fff',
+			overlayAlpha: 1,
+			text: '<div class=\'mt-2 text-small\'>Do Not Close This Window! To Stop the Notifier click on the button</div><br><div><button class=\"button warning\" id=\"stop\" >Stop Notify</button></div><script>$("#stop").click(function(){eel.stop_search()(function(bool){if(bool == true){console.log("Stopped");}else{console.log("doesnt")}});stop_loading();});</script\>',
+			}); 
+        }
+        
+        function stop_loading()
+        {
+            
+            Metro.activity.close(load);
+        }
+        
+        var url = '';
+        var phone = '';
+        var bot = null;
+        var posts_list =[];
+        
+        $("#start").click(function(){
+             
+            url = $("#url").val();
+            phone = $("#phone").val();
+            if(url.includes("www.yad2.co.il") && phone.includes("+972") && phone.length == 13)
+            {
+                if(url.includes("products") || url.includes("item"))
+                {
+                    start_loading();
+                    eel.start_search(url, phone)(function(data){
+                        if(data){
+                            if(data.includes("url")){
+                                console.log(data);
+                            }
+                        }
+                        posts_list = data;
+                    });
+                }
+                else{
+                    
+                    alert("URL is not vailed")
+                }
+            }
+            else{
+                
+                alert("URL or Phone not correct");
+            }
+        });
+        
+		
+    </script>
+</body>
+</html>

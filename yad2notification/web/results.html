@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>YAD2NOTFI</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
+    <script type="text/javascript" src="/eel.js"></script>
+	<style>
+		#body{ 
+			opacity: 0;
+			transition: opacity 2s;
+			-webkit-transition: opacity 3s; /* Safari */
+		}
+	</style>
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+    <aside class="sidebar pos-absolute z-2"
+       data-role="sidebar"
+       data-toggle="#sidebar-toggle-3"
+       id="sb3"
+       data-shift=".shifted-content">
+        <div class="sidebar-header" data-image="images/sb-bg-1.jpg">
+            <span class="title fg-white">Yad2 Notification</span>
+            <span class="subtitle fg-white"> 2020 © Eldar Shayeviz</span>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="by_search.html"><span class="mif-search icon"></span>By Search</a></li>
+            <li><a href="readme.html"><span class="mif-question icon"></span>How To Use</a></li>
+            <li class="divider"></li>
+            <li><a><span class="mif-list icon"></span>Results</a></li>
+        </ul>
+    </aside>
+
+    <div id="body" class="shifted-content h-100 p-ab">
+        <div class="app-bar pos-absolute bg-orange z-1" data-role="appbar">
+            <button class="app-bar-item c-pointer" id="sidebar-toggle-3">
+                <span class="mif-menu fg-white"></span>
+            </button>
+        </div>
+		<div class="container">
+			<div class="h-100 p-4" >
+				<p class="h4">Results:</p>
+				<ul id="results">your results will show up here</ul>
+			</div>
+		</div>
+    </div>
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+    <script>
+		document.getElementById("body").style.opacity='1'
+        
+        var results = "";
+        var x = 0;
+        var name = "";
+        var place = '';
+        var price = "";
+        var contact = "";
+        var phone = "";
+        var url = '';
+            
+       async function run() {
+
+            let posts_list = await eel.get_all()(); // Must prefix call with 'await', otherwise it's the same syntax
+            
+            posts_list = fix(posts_list, "[");
+            posts_list = fix(posts_list, ']');
+            posts_list = posts_list.split(","); 
+           
+            number_posts = posts_list.length/6;
+            results = save_result(posts_list,number_posts);
+            $("#results").html(results);
+           
+        }
+
+        run();
+        
+        function fix(str, c){
+            
+            len = str.split(c).length-1;
+            for(x=0; x<len; x++){
+
+                str = str.replace(c, "");
+
+            }   
+            return str;
+        }
+        
+        function save_result(posts_list, number_posts)
+        {
+                var i = 0;
+                var x = 0;
+                var result = "";
+                while(i<number_posts)
+                       {
+                           name = posts_list[x];
+                           place = posts_list[x+1];
+                           price = posts_list[x+2];
+                           contact = posts_list[x+3];
+                           phone = posts_list[x+4];
+                           url = posts_list[x+5];
+
+                           result += '<li class="mx-auto" data-role="panel" data-width="380" data-title-caption="'+ name +'" data-title-icon="<span class=\'mif-apps\'></span>" data-collapsible="true" data-cls-panel="shadow-3" data-cls-title="bg-orange fg-white" data-cls-title-icon="bg-grey fg-white" data-cls-content="bg-grayMouse fg-white" data-cls-collapse toggle="bg-dark fg-white marker-light"><p>place: '+place+'</p><p>price: '+price+'</p><p>contact: '+contact+'-'+phone+'</p></li><br>';
+                            i += 1;
+                            x += 6;
+                       }
+                if(result != undefined){
+                    result = "there is no posts, try search again..."
+                    return result;    
+                }
+        }
+
+    </script>
+</body>
+</html>

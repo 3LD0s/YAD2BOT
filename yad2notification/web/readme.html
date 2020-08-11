@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>YAD2NOTFI</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
+    <script type="text/javascript" src="/eel.js"></script>
+	<style>
+		#body{ 
+			opacity: 0;
+			transition: opacity 2s;
+			-webkit-transition: opacity 3s; /* Safari */
+		}
+	</style>
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+    <aside class="sidebar pos-absolute z-2"
+       data-role="sidebar"
+       data-toggle="#sidebar-toggle-3"
+       id="sb3"
+       data-shift=".shifted-content">
+        <div class="sidebar-header" data-image="images/sb-bg-1.jpg">
+            <span class="title fg-white">Yad2 Notification</span>
+            <span class="subtitle fg-white"> 2020 © Eldar Shayeviz</span>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="by_search.html"><span class="mif-search icon"></span>By Search</a></li>
+            <li><a><span class="mif-question icon"></span>How To Use</a></li>
+            <li class="divider"></li>
+            <li><a href="results.html"><span class="mif-list icon"></span>Results</a></li>
+        </ul>
+    </aside>
+
+    <div id="body" class="shifted-content h-100 p-ab">
+        <div class="app-bar pos-absolute bg-orange z-1" data-role="appbar">
+            <button class="app-bar-item c-pointer" id="sidebar-toggle-3">
+                <span class="mif-menu fg-white"></span>
+            </button>
+        </div>
+		<div class="container">
+			<div class="h-100 p-4" >
+				<p class="h3" style="text-align:center;">How To Use YAD2NOTFI:</p>
+				<p class="h4"style="text-align:center;">It Is Very Simple!</p>
+				<br>
+				<p>Get Notifications about new posts that upload to the site and match your search</p>
+				<p>all you need to do is:</p>
+				<p>1. search for whatever you want</p>
+				<p>2. copy the URL and paste it in YAD2Bot</p>
+				<p>3. send a "Join table-myself" to +1(415)523-8886 in Whatsapp</p>
+				<p>4. Enter your phone</p>
+				<p>5. press Notify me and wait for the massage!</p>
+			</div>
+		</div>
+    </div>
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+    <script>
+        document.getElementById("body").style.opacity='1'
+    </script>
+</body>
+</html>
