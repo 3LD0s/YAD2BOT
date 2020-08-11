@@ -9,8 +9,8 @@ import time
 # return True if massage sent
 # Error if not
 def send_massage(msg, phone):
-    account_sid = 'ACd75121056db21981c932136355c6895e'
-    auth_token = 'aa348d6120f843f93aca411b9fa7e7fd'
+    account_sid = 'Your_account_ID'
+    auth_token = 'Your_Auth_Token'
     client = Client(account_sid, auth_token)
 
     try:
